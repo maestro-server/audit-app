@@ -1,4 +1,4 @@
-'use strict';
+np'use strict';
 
 let gulp = require('gulp'),
     apidoc = require('gulp-apidoc'),
