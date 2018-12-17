@@ -1,0 +1,11 @@
+{
+  "apps": [{
+    "name": "audit-app",
+    "script": "./server.js",
+    "env": {
+      "production": true,
+      "NODE_ENV": "production",
+      "PORT": 10900
+    }
+  }]
+}

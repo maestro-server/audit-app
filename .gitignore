@@ -1,0 +1,15 @@
+node_modules
+.DS_Store
+.env
+.env.test
+.env.production
+.env.development
+.idea/
+.happypack/
+public/static/
+public/*
+npm-debug*
+coverage/
+.nyc_output/
+artifacts/
+tmp/
