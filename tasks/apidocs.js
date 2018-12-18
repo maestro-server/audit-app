@@ -1,4 +1,4 @@
-np'use strict';
+'use strict';
 
 let gulp = require('gulp'),
     apidoc = require('gulp-apidoc'),
@@ -8,7 +8,6 @@ let gulp = require('gulp'),
 let options = minimist(process.argv.slice(2), knownOptions);
 
 module.exports = function (gulp, $) {
-    'use strict';
 
     gulp.task('apidocs', function (done) {
       apidoc({

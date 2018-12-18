@@ -100,13 +100,13 @@
                 ]
             }
         },
-        "router-graph": {
+        "router-audit": {
             "priority": 120,
             "module": {
                 "name": "express-enrouten",
                 "arguments": [
                     {
-                        "directory": "path:./graph/routers/graphs"
+                        "directory": "path:./audit/routers/audit"
                     }
                 ]
             }

@@ -1,16 +1,16 @@
 {
-    "name": "API-Analytics Maestro - Public UI Graph Trees",
+    "name": "API Maestro - Audit App",
     "version": "0.1.0",
     "description": "API documentation - HTML/RestFull",
     "apidoc": {
-        "title": "API - Public Analytics",
-        "url": "https://localhost:8888/apidocs/v1"
+        "title": "API - Audit App",
+        "url": "https://localhost:10900/apidocs/v1"
     },
     "header": {
       "filename": "devtools/doc/header.md"
     },
     "order": [
         "Ping",
-        "Graphs"
+        "Audit"
     ]
 }

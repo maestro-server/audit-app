@@ -9,7 +9,7 @@ const pngGraph = require('graph/services/readPngGraph.js');
 const notExist = require('graph/applications/validator/validNotExist');
 
 
-const ApplicationReport = (Entity, PersistenceServices = DPersistenceServices, FUploadService = DUploaderService) => {
+const ApplicationAudit = (Entity, PersistenceServices = DPersistenceServices, FUploadService = DUploaderService) => {
 
     const UploadService = FUploadService;
 
@@ -74,4 +74,4 @@ const ApplicationReport = (Entity, PersistenceServices = DPersistenceServices, F
     };
 };
 
-module.exports = _.curry(ApplicationReport);
+module.exports = _.curry(ApplicationAudit);
