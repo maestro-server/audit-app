@@ -12,6 +12,39 @@ const DBRepository = (Entity, options = {}) => {
 
     return {
 
+        find(query, resFilled = Entity.resFilled) {
+            return new Promise((resolve, reject) => {
+                const limit = _.parseInt(query.limit);
+                const page = _.parseInt(query.page);
+                const skip = limit * (page - 1);
+
+                const ascending = _.parseInt(_.get(query, 'ascending'));
+                const direction = ascending ? 1 : -1;
+                const orderBy = _.get(query, 'orderBy', 'updated_at');
+                const filter = findFilledFormat(query, Entity.singleFilled);
+
+                return DB
+                    .limit(limit)
+                    .skip(skip)
+                    .sort(orderBy, direction)
+                    .include(resFilled)
+                    .find(filter)
+                    .then((e) => _.map(e, (value) => value.get()))
+                    .then(resolve)
+                    .catch(reject);
+            });
+        },
+
+        count(filters = {}, fill = Entity.singleFilled) {
+            return new Promise((resolve, reject) => {
+                const filter = findFilledFormat(filters, fill);
+
+                return DB.count(filter)
+                    .then(resolve)
+                    .catch(reject);
+            });
+        },
+
         findOne(filters, resFilled = Entity.singleFilled) {
             return new Promise((resolve, reject) => {
                 const entityVS = _.get(Entity, 'visibility.single');
@@ -31,12 +64,24 @@ const DBRepository = (Entity, options = {}) => {
             });
         },
 
+        create(post, fill = Entity.filled, resFilled = Entity.singleFilled) {
+            return new Promise((resolve, reject) => {
+                let data = findFilledFormat(post, fill);
+                data = factoryValid(data, Entity.validators.create);
+
+                return new DB(data)
+                    .save()
+                    .then((e) => _.pick(e.get(), resFilled))
+                    .then(resolve)
+                    .catch(reject);
+
+            });
+
+        },
+
         patch(filter, post, fill = Entity.filled, resFilled = Entity.singleFilled) {
             return new Promise((resolve, reject) => {
                 let data = findFilledFormat(post, fill);
-
-                if(!_.has(options, 'ignoreValid'))
-                  data = factoryValid(data, Entity.validators.update);
 
                 return new DB(data)
                     .updateAndModify(filter, options)
@@ -45,6 +90,20 @@ const DBRepository = (Entity, options = {}) => {
                     .then(resolve)
                     .catch(reject);
 
+            });
+        },
+
+        update(filter, post, fill = Entity.filled, resFilled = Entity.singleFilled) {
+
+            return new Promise((resolve, reject) => {
+                let data = findFilledFormat(post, fill);
+                data = factoryValid(data, Entity.validators.update);
+
+                return new DB(data)
+                    .updateFull(filter, {upsert: true})
+                    .then((e) => _.pick(e.get(), resFilled))
+                    .then(resolve)
+                    .catch(reject);
             });
         }
 

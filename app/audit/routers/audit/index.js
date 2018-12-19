@@ -1,13 +1,16 @@
 'use strict';
 
-const authenticate = require('graph/middlewares/authenticate');
+const authenticate = require('audit/middlewares/authenticate');
 
-const Graph = require('../../entities/Graph');
+const Audit = require('../../entities/Audit');
+const Snapshot = require('../../entities/Snapshot');
 const Team = require('../../entities/Teams');
 
-const ViewGraph = require('../../applications/viewGraph');
-const WrapperPersistenceApp = require('core/applications/wrapperPersistenceApplication')(Graph)(Team);
-const WrapperPersistenceAppGraphs = WrapperPersistenceApp(ViewGraph);
+const PersistenceAppAudit = require('../../applications/persistenceAudit')(Snapshot);
+const WrapperPersistenceApp = require('core/applications/wrapperPersistenceApplication')(Audit)(Team);
+const WrapperPersistenceAppAudit = WrapperPersistenceApp(PersistenceAppAudit);
+
+
 
 
 module.exports = function (router) {
@@ -22,7 +25,7 @@ module.exports = function (router) {
          * @apiParam (Param) {String} id Team unique ID.
          * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
          */
-        .get('/teams/:id/audit/:entity', authenticate(), WrapperPersistenceAppGraphs('view').findOne)
+        .get('/teams/:id/audit/:entity', authenticate(), WrapperPersistenceAppAudit().find)
         /**
          * @api {get} /teams/:id/audit/:entity ab. Show record
          * @apiName GetTeamApiID
@@ -33,7 +36,7 @@ module.exports = function (router) {
          * @apiParam (Param) {String} idu Entity unique ID.
          * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
          */
-        .get('/teams/:id/audit/:entity/:idu', authenticate(), WrapperPersistenceAppGraphs('view').findOne)
+        .get('/teams/:id/audit/:entity/:idu', authenticate(), WrapperPersistenceAppAudit().findOne)
         /**
          * @api {post} /teams/:id/audit/:entity ac. Create record
          * @apiName CreateTeamApi
@@ -43,5 +46,5 @@ module.exports = function (router) {
          * @apiParam (Param) {String} id Team unique ID.
          * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
          */
-        .post('/teams/:id/audit/:entity', authenticate(), WrapperPersistenceAppGraphs('png').findOne);
+        .post('/teams/:id/audit/:entity', authenticate(), WrapperPersistenceAppAudit().create);
 };

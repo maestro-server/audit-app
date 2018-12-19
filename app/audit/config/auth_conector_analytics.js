@@ -16,7 +16,7 @@ module.exports = function () {
 
         if (token) {
             const noauth = process.env.MAESTRO_NOAUTH || "defaultSecretNoAuthToken"
-            const ids = _.pick(payload, ['graph_id', 'owner_id']);
+            const ids = _.pick(payload, ['en', 'owner_id']);
 
             if (noauth === token) {
                 return done(null, ids);

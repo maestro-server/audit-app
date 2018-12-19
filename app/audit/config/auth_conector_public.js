@@ -5,7 +5,7 @@ const {Passport} = require('passport');
 
 const {Strategy} = require('passport-jwt');
 
-const config = require('graph/config/auth_config_analytics_public')();
+const config = require('audit/config/auth_config_analytics_public')();
 const PermissionError = require('core/errors/factoryError')('PermissionError');
 
 module.exports = function () {

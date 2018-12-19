@@ -5,10 +5,10 @@ const {Passport} = require('passport');
 
 const {Strategy} = require('passport-jwt');
 
-const User = require('graph/entities/Users');
+const User = require('audit/entities/Users');
 const DBRepository = require('core/repositories/DBRepository');
 
-const config = require('graph/config/auth_config')();
+const config = require('audit/config/auth_config')();
 const PermissionError = require('core/errors/factoryError')('PermissionError');
 
 module.exports = function () {

@@ -1,0 +1,24 @@
+{
+  "applications": {
+    "name": [
+      {
+        "command": "sync",
+        "foreign": "servers",
+        "field": {
+          "query": "applications.$.name",
+          "replace": "name"
+        },
+        "filter": "applications._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "applications",
+        "field": {
+          "query": "deps.$.name",
+          "replace": "name"
+        },
+        "filter": "deps._id"
+      }
+    ]
+  }
+}

@@ -27,9 +27,19 @@ const WrapperPersistenceApp = (Entity) => (ACEntity) => (FactoryPesistenceApp) =
     };
 
     return {
+        find (req, res, next) {
+            const mtd = apply || 'find';
+            factoryWrapper(mtd, Access.ROLE_READ)(req, res, next);
+        },
+
         findOne (req, res, next) {
             const mtd = apply || 'findOne';
             factoryWrapper(mtd, Access.ROLE_READ)(req, res, next);
+        },
+
+        create (req, res, next) {
+            const mtd = apply || 'create';
+            factoryWrapper(mtd, Access.ROLE_WRITER)(req, res, next);
         }
     };
 

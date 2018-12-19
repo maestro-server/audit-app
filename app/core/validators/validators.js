@@ -3,6 +3,10 @@
 const Joi = require('joi');
 
 module.exports = {
+    entity: Joi.string().required(),
+    entity_id: Joi.object().required(),
+    body: Joi.object(),
+    parent: Joi.object(),
     roles: Joi.object().keys({
         _id: Joi.object(),
         role: Joi.number().valid(1, 3, 7).required(),
@@ -15,5 +19,6 @@ module.exports = {
         email: Joi.string().email(),
         _id: Joi.object(),
         refs: Joi.string()
-    })
+    }),
+    active: Joi.boolean()
 };

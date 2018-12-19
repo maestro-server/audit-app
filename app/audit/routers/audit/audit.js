@@ -1,12 +1,10 @@
 'use strict';
 
-const authenticate = require('graph/middlewares/authenticate');
-const authenticate_public = require('graph/middlewares/authenticate_public');
-const authenticate_audit = require('graph/middlewares/authenticate_back');
+const authenticate_audit = require('audit/middlewares/authenticate_back');
 
-const Graph = require('../../entities/Graph');
-const PersistenceGraph = require('../../applications/persistenceGraph')(Graph);
-const ViewGraph = require('../../applications/viewGraph')(Graph);
+const Audit = require('../../entities/Audit');
+const Snapshot = require('../../entities/Snapshot');
+const PersistenceAudit = require('../../applications/persistenceAudit')(Snapshot)(Audit);
 
 
 module.exports = function (router) {
@@ -30,7 +28,7 @@ module.exports = function (router) {
          */
 
         /**
-         * @api {get} /api/:entity a. List record by entity
+         * @api {get} /audit/:entity a. List record by entity
          * @apiName GetAudit
          * @apiGroup Audit
          *
@@ -66,9 +64,9 @@ module.exports = function (router) {
          *          }
          *     ]
          */
-        .get('/:entity', authenticate(), ViewGraph.view)
+        .get('/:entity', PersistenceAudit.find)
         /**
-         * @api {get} /api/:entity/:id b. Show record
+         * @api {get} /audit/:entity/:id b. Show record
          * @apiName GetAuditId
          * @apiGroup Audit
          *
@@ -95,16 +93,16 @@ module.exports = function (router) {
          *          }
          *     ]
          */
-        .get('/:entity/:id', authenticate(), ViewGraph.view)
+        .get('/:entity/:id', PersistenceAudit.findOne)
         /**
-         * @api {post} /api/:entity c. Create record
+         * @api {post} /audit/:entity/:id c. Create record command
          * @apiName CreateAudit
          * @apiGroup Audit
+         * @apiDescription Set a full record on track
          *
-         * @apiParam (Body x-www) {String} [entity_id] Entity ID
-         * @apiParam (Body x-www) {String} [roles] Current roles
          * @apiParam (Body x-www) {String} field All fields
          *
+         * @apiParam (Param) {String} id Entity unique id.
          * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
          *
          * @apiPermission JWT Audit (Contract)
@@ -117,5 +115,48 @@ module.exports = function (router) {
          *     HTTP/1.1 201 OK
          *     {}
          */
-        .post('/:entity', authenticate_audit(), PersistenceGraph.create);
+        .post('/:entity/:id', PersistenceAudit.create)
+        /**
+         * @api {patch} /audit/:entity/:id c. Patch record command
+         * @apiName PatchAudit
+         * @apiGroup Audit
+         * @apiDescription Set a partial record on track
+         *
+         * @apiParam (Body x-www) {String} field All fields
+         *
+         * @apiParam (Param) {String} id Entity unique id.
+         * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
+         *
+         * @apiPermission JWT Audit (Contract)
+         * @apiHeader (Header) {String} Authorization JWT {Token}
+         *
+         * @apiError (Error) PermissionError Token don`t have permission
+         * @apiError (Error) Unauthorized Invalid Token
+         *
+         * @apiSuccessExample {json} Success-Response:
+         *     HTTP/1.1 201 OK
+         *     {}
+         */
+        .patch('/:entity/:id', PersistenceAudit.patch)
+        /**
+         * @api {delete} /audit/:entity/:id c. Remove record command
+         * @apiName RemoveAudit
+         * @apiGroup Audit
+         * @apiDescription Set a delete record on track
+         *
+         *
+         * @apiParam (Param) {String} id Entity unique id.
+         * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
+         *
+         * @apiPermission JWT Audit (Contract)
+         * @apiHeader (Header) {String} Authorization JWT {Token}
+         *
+         * @apiError (Error) PermissionError Token don`t have permission
+         * @apiError (Error) Unauthorized Invalid Token
+         *
+         * @apiSuccessExample {json} Success-Response:
+         *     HTTP/1.1 201 OK
+         *     {}
+         */
+        .delete('/:entity/:id', PersistenceAudit.remove);
 };

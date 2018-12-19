@@ -1,11 +1,15 @@
 'use strict';
 
 const Joi = require('joi');
+const {roles, entity, entity_id, body, parent, active} = require('core/validators/validators');
 
 const schema = Joi.object().keys({
-    status: Joi.string().valid('process', 'finished', 'error', 'warning').default('process'),
-    msg: Joi.any(),
-    active: Joi.boolean()
+    entity,
+    entity_id,
+    body,
+    parent,
+    roles,
+    active
 });
 
 module.exports = {

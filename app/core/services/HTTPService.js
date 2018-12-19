@@ -60,10 +60,15 @@ const AnalyticsHTTPService = (header = {}) => {
     return HTTPService(url)(header);
 };
 
+const DataHTTPService = (header = {}) => {
+    const url = process.env.MAESTRO_DATA_URI || 'http://localhost:5010';
+    return HTTPService(url)(header);
+};
 
 module.exports = {
     HTTPService,
     DiscoveryHTTPService,
     ReportHTTPService,
-    AnalyticsHTTPService
+    AnalyticsHTTPService,
+    DataHTTPService
 };

@@ -77,7 +77,7 @@
         },
         "tokenization-analytics": {
             "priority": 45,
-            "module": "path:./graph/middlewares/tokenization_analytics"
+            "module": "path:./audit/middlewares/tokenization_analytics"
         },
         "appsec": {
             "priority": 110,

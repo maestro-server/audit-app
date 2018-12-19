@@ -1,7 +1,5 @@
 'use strict';
 
-const NotifyError = require('core/services/NotifyError');
-
 
 module.exports = function () {
 
@@ -24,8 +22,6 @@ module.exports = function () {
         }
 
         res.status(code).json({err});
-
-        NotifyError(req.user, err);
 
         if (code === 500) {
             console.error(err);
