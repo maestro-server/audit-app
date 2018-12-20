@@ -28,44 +28,6 @@ module.exports = function (router) {
          */
 
         /**
-         * @api {get} /audit/:entity a. List record by entity
-         * @apiName GetAudit
-         * @apiGroup Audit
-         *
-         * @apiParam (Query) {String} [token] Authorization JWT {Token}
-         * @apiParam (Query) {String} entity_id Entity unique id
-         * @apiParam (Query) {Object} data Filter by field
-         * <br/>
-         * Must used with dot notation, like
-         * <pre class="prettyprint language-json" data-type="json">
-         * <code>
-         * "data.hostname": 'search by hostname' // or<br/>
-         * "data.datacenters.providers": 'search by providers'
-         *  </code>
-         * </pre>
-         *
-         * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
-         *
-         * @apiPermission JWT (Read | Write | Admin)
-         *
-         * @apiError (Error) PermissionError Token don`t have permission
-         * @apiError (Error) Unauthorized Invalid Token
-         *
-         * @apiSuccessExample {json} Success-Response:
-         *     HTTP/1.1 200 OK
-         *     [
-         *      {
-         *          _id: <string>
-         *          entity_id: <string>
-         *          entity: <string>
-         *          created_at: <date TZ>
-         *          data: <object>
-         *               {}
-         *          }
-         *     ]
-         */
-        .get('/:entity', PersistenceAudit.find)
-        /**
          * @api {get} /audit/:entity/:id b. Show record
          * @apiName GetAuditId
          * @apiGroup Audit
@@ -88,12 +50,12 @@ module.exports = function (router) {
          *          entity_id: <string>
          *          entity: <string>
          *          created_at: <date TZ>
-         *          data: <object>
+         *          body: <object>
          *               {}
          *          }
          *     ]
          */
-        .get('/:entity/:id', PersistenceAudit.findOne)
+        .get('/:entity/:id', PersistenceAudit.find)
         /**
          * @api {post} /audit/:entity/:id c. Create record command
          * @apiName CreateAudit

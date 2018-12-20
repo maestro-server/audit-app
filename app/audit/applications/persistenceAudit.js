@@ -4,8 +4,6 @@ const _ = require('lodash');
 
 const DPersistenceServices = require('core/services/PersistenceServices');
 const validNotFound = require('core/applications/validator/validNotFound');
-const notExist = require('core/applications/validator/validNotExist');
-const jsonParser = require('core/applications/transforms/jsonParser');
 const {transfID} = require('core/applications/transforms/mapRelationToObjectID');
 
 const AuditTrack = require('audit/services/AuditTrack');
@@ -19,11 +17,14 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
         find(req, res, next) {
 
             let {query, params} = req;
-            query = _.defaults(query, {limit: 20000}, {page: 1});
-            query = jsonParser(query, 'query');
+
+            params = transfID(params, 'id');
+            const entity_id = _.get(params, 'id');
+            const entity = _.get(params, 'entity');
+
+            query = _.defaults(query, {entity, entity_id}, {limit: 20000}, {page: 1});
 
             const {limit, page} = query;
-
 
             PersistenceServices(Entity)
                 .find(query)
@@ -32,21 +33,12 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
                 .catch(next);
         },
 
-        findOne(req, res, next) {
-
-            PersistenceServices(Entity)
-                .findOne(req.params.id, req.user)
-                .then(notExist)
-                .then(e => res.json(e))
-                .catch(next);
-        },
-
         create(req, res, next) {
             let {body, params} = req;
 
-            params = transfID(params, 'id')
-            const entity_id = _.get(params, 'id')
-            const entity = _.get(params, 'entity')
+            params = transfID(params, 'id');
+            const entity_id = _.get(params, 'id');
+            const entity = _.get(params, 'entity');
 
             PersistenceServices(EntityStorage)
                 .findOne({entity_id})
@@ -86,9 +78,9 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
         remove(req, res, next) {
             let {params} = req;
 
-            params = transfID(params, 'id')
-            const entity_id = _.get(params, 'id')
-            const entity = _.get(params, 'entity')
+            params = transfID(params, 'id');
+            const entity_id = _.get(params, 'id');
+            const entity = _.get(params, 'entity');
 
             AuditTrackCharged({entity, entity_id})
                 .remove()

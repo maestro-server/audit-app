@@ -5,8 +5,6 @@ const _ = require('lodash');
 const DFactoryDBRepository = require('core/repositories/DBRepository');
 
 const Access = require('core/entities/accessRole');
-const accessMergeTransform = require('./transforms/accessMergeTransform');
-const regexFilterQuery = require('./transforms/regexFilterQuery');
 const mapArrIn = require('./transforms/mapArrIn');
 
 
@@ -21,8 +19,7 @@ const Persistence = (Entity, FactoryDBRepository = DFactoryDBRepository) => {
                 query =  mapArrIn(query);
 
                 const prepared = _.assign({},
-                    query,
-                    ...regexFilterQuery(_.get(query, 'query'))
+                    query
                 );
 
                 return Promise.all([
