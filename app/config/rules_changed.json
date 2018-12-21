@@ -18,6 +18,15 @@
           "replace": "name"
         },
         "filter": "deps._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "systems",
+        "field": {
+          "query": "entry.$.name",
+          "replace": "name"
+        },
+        "filter": "entry._id"
       }
     ]
   }

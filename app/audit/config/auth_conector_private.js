@@ -4,7 +4,7 @@ const _ = require('lodash');
 const {Passport} = require('passport');
 
 const {Strategy} = require('passport-jwt');
-const config = require('./auth_config_analytics')();
+const config = require('./auth_config_private')();
 const PermissionError = require('core/errors/factoryError')('PermissionError');
 
 module.exports = function () {
@@ -12,17 +12,18 @@ module.exports = function () {
 
     const strategy = new Strategy(config.jwtSecret, function (payload, done) {
 
-        const {token} = payload;
+        const {noauth} = payload;
 
-        if (token) {
-            const noauth = process.env.MAESTRO_NOAUTH || "defaultSecretNoAuthToken"
-            const ids = _.pick(payload, ['en', 'owner_id']);
+        if (noauth) {
+            const slfnoauth = process.env.MAESTRO_NOAUTH || "defaultSecretNoAuthToken"
 
-            if (noauth === token) {
-                return done(null, ids);
+            if (noauth === slfnoauth) {
+                return done(null, payload);
             }
             return done(new PermissionError("Invalid token"), false);
         }
+
+        return done(new PermissionError("Payload MissMatch"), false);
 
     });
 

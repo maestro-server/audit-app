@@ -71,13 +71,9 @@
             "priority": 1,
             "module": "path:./core/middlewares/cors"
         },
-        "tokenization": {
+        "tokenization-private": {
             "priority": 45,
-            "module": "path:./core/middlewares/tokenization"
-        },
-        "tokenization-analytics": {
-            "priority": 45,
-            "module": "path:./audit/middlewares/tokenization_analytics"
+            "module": "path:./audit/middlewares/tokenization_private"
         },
         "appsec": {
             "priority": 110,

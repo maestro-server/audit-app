@@ -1,6 +1,6 @@
 'use strict';
 
-const authenticate_audit = require('audit/middlewares/authenticate_back');
+const authenticate_private = require('audit/middlewares/authenticate_private');
 
 const Audit = require('../../entities/Audit');
 const Snapshot = require('../../entities/Snapshot');
@@ -55,7 +55,7 @@ module.exports = function (router) {
          *          }
          *     ]
          */
-        .get('/:entity/:id', PersistenceAudit.find)
+        .get('/:entity/:id', authenticate_private(), PersistenceAudit.find)
         /**
          * @api {post} /audit/:entity/:id c. Create record command
          * @apiName CreateAudit
@@ -77,7 +77,7 @@ module.exports = function (router) {
          *     HTTP/1.1 201 OK
          *     {}
          */
-        .post('/:entity/:id', PersistenceAudit.create)
+        .post('/:entity/:id', authenticate_private(), PersistenceAudit.create)
         /**
          * @api {patch} /audit/:entity/:id c. Patch record command
          * @apiName PatchAudit
@@ -99,7 +99,7 @@ module.exports = function (router) {
          *     HTTP/1.1 201 OK
          *     {}
          */
-        .patch('/:entity/:id', PersistenceAudit.patch)
+        .patch('/:entity/:id', authenticate_private(), PersistenceAudit.patch)
         /**
          * @api {delete} /audit/:entity/:id c. Remove record command
          * @apiName RemoveAudit
@@ -120,5 +120,5 @@ module.exports = function (router) {
          *     HTTP/1.1 201 OK
          *     {}
          */
-        .delete('/:entity/:id', PersistenceAudit.remove);
+        .delete('/:entity/:id', authenticate_private(), PersistenceAudit.remove);
 };
