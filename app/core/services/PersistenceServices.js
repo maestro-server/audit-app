@@ -3,8 +3,6 @@
 const _ = require('lodash');
 
 const DFactoryDBRepository = require('core/repositories/DBRepository');
-
-const Access = require('core/entities/accessRole');
 const mapArrIn = require('./transforms/mapArrIn');
 
 
@@ -65,7 +63,7 @@ const Persistence = (Entity, FactoryDBRepository = DFactoryDBRepository) => {
             });
         },
 
-        patch (entity_id, post, owner, access = Access.ROLE_WRITER) {
+        patch (entity_id, post) {
 
             return new Promise((resolve, reject) => {
                 const fill = _.slice(Entity.singleFilled, 2);

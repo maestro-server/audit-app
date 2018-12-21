@@ -45,20 +45,6 @@ const HTTPService = (url) => (header = {}) => {
     };
 };
 
-const DiscoveryHTTPService = (header = {}) => {
-    const url = process.env.MAESTRO_DISCOVERY_URI || 'http://localhost:5000';
-    return HTTPService(url)(header);
-};
-
-const ReportHTTPService = (header = {}) => {
-    const url = process.env.MAESTRO_REPORT_URI || 'http://localhost:5005';
-    return HTTPService(url)(header);
-};
-
-const AnalyticsHTTPService = (header = {}) => {
-    const url = process.env.MAESTRO_ANALYTICS_URI || 'http://localhost:5020';
-    return HTTPService(url)(header);
-};
 
 const DataHTTPService = (header = {}) => {
     const url = process.env.MAESTRO_DATA_URI || 'http://localhost:5010';
@@ -67,8 +53,5 @@ const DataHTTPService = (header = {}) => {
 
 module.exports = {
     HTTPService,
-    DiscoveryHTTPService,
-    ReportHTTPService,
-    AnalyticsHTTPService,
     DataHTTPService
 };

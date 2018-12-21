@@ -5,18 +5,6 @@
         "views": "path:./templates"
     },
 
-    "view engines": {
-        "dust": {
-            "module": "adaro",
-            "renderer": {
-                "method": "dust",
-                "arguments": [
-                    { "cache": false }
-                ]
-            }
-        }
-    },
-
     "i18n": {
         "contentPath": "path:./locales",
         "fallback": "en-US"
@@ -25,14 +13,6 @@
     "middleware": {
         "session": {
             "enabled": false
-        },
-        "static": {
-            "enabled": true,
-            "priority": 40,
-            "module": {
-                "name": "serve-static",
-                "arguments": [ "path:./../public" ]
-            }
         },
         "cookieParser": {
             "enabled": false
@@ -48,12 +28,6 @@
                         "extended": true
                     }
                 ]
-            }
-        },
-        "multipart": {
-            "enabled": true,
-            "params": {
-                "keepExtensions": true
             }
         },
         "filter": {
