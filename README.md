@@ -99,18 +99,18 @@ gulp eslint
 
 ### Env variables ###
 
-| Env Variables                        | Example                  | Description                  |
-|--------------------------------------|--------------------------|------------------------------|
-| MAESTRO_PORT                         | 10900                    |                              |
-| NODE_ENV                             | development|production   |                              |
-| MAESTRO_MONGO_URI                    | localhost                | DB string connection         |
-| MAESTRO_MONGO_DATABASE               | maestro-audit            | Database name                |
-| MAESTRO_SECRETJWT                    | XXXX                     | Secret key - session         |
-| MAESTRO_SECRETJWT_AUDIT              | XXXX                     | Secret key - hooked changed  |
-| PWD                                  | $rootDirectory           | PWD process                  |
+| Env Variables                        | Example                  | Description                                |
+|--------------------------------------|--------------------------|--------------------------------------------|
+| MAESTRO_PORT                         | 10900                    |                                            |
+| NODE_ENV                             | development|production   |                                            |
+| MAESTRO_MONGO_URI                    | localhost                | DB string connection                       |
+| MAESTRO_MONGO_DATABASE               | maestro-audit            | Database name                              |
+| MAESTRO_TIMEOUT                      | 1000                     | Timeout any http private request           |
+| MAESTRO_DATA_URI                     | http://localhost:5010    | Data App - API URL                         |
+|                                      |                          |                                            |
+| MAESTRO_SECRETJWT_PRIVATE            | XXX                      | Secret Key - JWT private connections       |
+| MAESTRO_NOAUTH                       | XXX                      | Secret Pass to validate private connections|
 
-MAESTRO_SECRETJWT_AUDIT - It's token authentication used by server app and data app to notify changes.
-MAESTRO_SECRETJWT_PUBLIC_AUDIT - Used by server app to apply public view authentication.
 
 ### Contribute ###
 
