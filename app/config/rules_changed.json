@@ -28,6 +28,98 @@
         },
         "filter": "entry._id"
       }
+    ],
+    "family": [
+      {
+        "command": "sync",
+        "foreign": "servers",
+        "field": {
+          "query": "applications.$.family",
+          "replace": "family"
+        },
+        "filter": "applications._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "applications",
+        "field": {
+          "query": "deps.$.family",
+          "replace": "family"
+        },
+        "filter": "deps._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "systems",
+        "field": {
+          "query": "entry.$.family",
+          "replace": "family"
+        },
+        "filter": "entry._id"
+      }
+    ]
+  },
+
+
+  "system": {
+    "name": [
+      {
+        "command": "sync",
+        "foreign": "applications",
+        "field": {
+          "query": "system.$.name",
+          "replace": "name"
+        },
+        "filter": "system._id"
+      }
+    ]
+  },
+
+
+  "clients": {
+    "name": [
+      {
+        "command": "sync",
+        "foreign": "systems",
+        "field": {
+          "query": "clients.$.name",
+          "replace": "name"
+        },
+        "filter": "clients._id"
+      }
+    ]
+  },
+
+
+  "datacenters": {
+    "name": [
+      {
+        "command": "sync",
+        "foreign": "servers",
+        "field": {
+          "query": "datacenters.name",
+          "replace": "name"
+        },
+        "filter": "datacenters._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "applications",
+        "field": {
+          "query": "datacenters.name",
+          "replace": "name"
+        },
+        "filter": "datacenters._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "connections",
+        "field": {
+          "query": "dc",
+          "replace": "name"
+        },
+        "filter": "dc_id"
+      }
     ]
   }
 }

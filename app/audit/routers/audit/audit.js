@@ -37,7 +37,8 @@ module.exports = function (router) {
          * @apiParam (Param) {String} id Entity unique id.
          * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
          *
-         * @apiPermission JWT (Read | Write | Admin)
+         * @apiPermission JWT Private (MAESTRO_SECRETJWT_PRIVATE)
+         * @apiHeader (Header) {String} Authorization JWT {Token}
          *
          * @apiError (Error) PermissionError Token don`t have permission
          * @apiError (Error) Unauthorized Invalid Token
@@ -67,7 +68,7 @@ module.exports = function (router) {
          * @apiParam (Param) {String} id Entity unique id.
          * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
          *
-         * @apiPermission JWT Audit (Contract)
+         * @apiPermission JWT Private (MAESTRO_SECRETJWT_PRIVATE)
          * @apiHeader (Header) {String} Authorization JWT {Token}
          *
          * @apiError (Error) PermissionError Token don`t have permission
@@ -89,7 +90,7 @@ module.exports = function (router) {
          * @apiParam (Param) {String} id Entity unique id.
          * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
          *
-         * @apiPermission JWT Audit (Contract)
+         * @apiPermission JWT Private (MAESTRO_SECRETJWT_PRIVATE)
          * @apiHeader (Header) {String} Authorization JWT {Token}
          *
          * @apiError (Error) PermissionError Token don`t have permission
@@ -110,7 +111,7 @@ module.exports = function (router) {
          * @apiParam (Param) {String} id Entity unique id.
          * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
          *
-         * @apiPermission JWT Audit (Contract)
+         * @apiPermission JWT Private (MAESTRO_SECRETJWT_PRIVATE)
          * @apiHeader (Header) {String} Authorization JWT {Token}
          *
          * @apiError (Error) PermissionError Token don`t have permission

@@ -107,7 +107,6 @@ gulp eslint
 | MAESTRO_MONGO_DATABASE               | maestro-audit            | Database name                |
 | MAESTRO_SECRETJWT                    | XXXX                     | Secret key - session         |
 | MAESTRO_SECRETJWT_AUDIT              | XXXX                     | Secret key - hooked changed  |
-| MAESTRO_SECRETJWT_PUBLIC_AUDIT       | XXXX                     | Secret key - same server app |
 | PWD                                  | $rootDirectory           | PWD process                  |
 
 MAESTRO_SECRETJWT_AUDIT - It's token authentication used by server app and data app to notify changes.

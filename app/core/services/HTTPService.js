@@ -20,7 +20,7 @@ const HTTPService = (url) => (header = {}) => {
                             const str = _.reduce((result, value) => result = `${result} ${value}`, '')(e.response.data.message);
                             reject(HTTPError(str));
                         }
-                        reject(HTTPError(e.response.data.error));
+                        reject(HTTPError(e.response.data));
                     } else {
                         reject(HTTPError(e.toString()));
                     }
