@@ -95,16 +95,15 @@
     "name": [
       {
         "command": "sync",
-        "foreign": "servers",
-        "field": {
-          "query": "datacenters.name",
-          "replace": "name"
-        },
-        "filter": "datacenters._id"
-      },
-      {
-        "command": "sync",
-        "foreign": "applications",
+        "foreign": [
+          "servers",
+          "applications",
+          "volumes",
+          "networks",
+          "images",
+          "flavors",
+          "snapshots"
+        ],
         "field": {
           "query": "datacenters.name",
           "replace": "name"
@@ -119,6 +118,102 @@
           "replace": "name"
         },
         "filter": "dc_id"
+      }
+    ]
+  },
+
+  "teams": {
+    "name": [
+      {
+        "command": "sync",
+        "foreign": [
+          "applications",
+          "clients",
+          "datacenters",
+          "events",
+          "flavors",
+          "graphs",
+          "images",
+          "networks",
+          "projects",
+          "reports",
+          "schedulers",
+          "servers",
+          "snapshots",
+          "systems",
+          "volumes"
+        ],
+        "field": {
+          "query": "roles.$.name",
+          "replace": "name"
+        },
+        "filter": "roles._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "connections",
+        "field": {
+          "query": "owner_user.name",
+          "replace": "name"
+        },
+        "filter": "owner_user._id"
+      }
+    ]
+  },
+
+
+  "users": {
+    "email": [
+      {
+        "command": "sync",
+        "foreign": [
+          "applications",
+          "clients",
+          "datacenters",
+          "events",
+          "flavors",
+          "graphs",
+          "images",
+          "networks",
+          "projects",
+          "reports",
+          "schedulers",
+          "servers"
+        ],
+        "field": {
+          "query": "roles.$.email",
+          "replace": "email"
+        },
+        "filter": "roles._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "teams",
+        "field": {
+          "query": "members.$.email",
+          "replace": "email"
+        },
+        "filter": "members._id"
+      },
+      {
+        "command": "sync",
+        "foreign": "connections",
+        "field": {
+          "query": "owner_user.email",
+          "replace": "email"
+        },
+        "filter": "owner_user._id"
+      }
+    ],
+    "name": [
+      {
+        "command": "sync",
+        "foreign": "teams",
+        "field": {
+          "query": "members.$.name",
+          "replace": "name"
+        },
+        "filter": "members._id"
       }
     ]
   }

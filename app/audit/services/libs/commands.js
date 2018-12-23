@@ -3,6 +3,13 @@
 const _ = require('lodash');
 const {DataHTTPService} = require('core/services/HTTPService');
 
+const requestData = (post) => {
+    DataHTTPService()
+        .create(`/sync`, post)
+        .then(console.info)
+        .catch(console.error);
+}
+
 module.exports = {
     'sync': (data, entity_id, {foreign, field, filter}) => {
 
@@ -13,13 +20,21 @@ module.exports = {
         const body = {[field['query']]: _.get(data, field['replace'])};
 
         const post = {
-            'entity': foreign,
             'query': JSON.stringify(query),
             'body': JSON.stringify(body)
         };
 
-        DataHTTPService()
-            .create(`/sync`, post)
-            .catch(console.error);
+        if(_.isArray(foreign)) {
+            for(let fitem in foreign) {
+                _.assign(post, {'entity': foreign[fitem]});
+                requestData(post);
+            }
+        }
+
+        if(_.isString(foreign)) {
+            _.assign(post, {'entity': foreign});
+            requestData(post);
+        }
+
     }
 }
