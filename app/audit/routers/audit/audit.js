@@ -58,7 +58,7 @@ module.exports = function (router) {
          */
         .get('/:entity/:id', authenticate_private(), PersistenceAudit.find)
         /**
-         * @api {post} /audit/:entity/:id c. Create record command
+         * @api {post} /audit/:entity/:id c. Create new record
          * @apiName CreateAudit
          * @apiGroup Audit
          * @apiDescription Set a full record on track
@@ -80,7 +80,29 @@ module.exports = function (router) {
          */
         .post('/:entity/:id', authenticate_private(), PersistenceAudit.create)
         /**
-         * @api {patch} /audit/:entity/:id c. Patch record command
+         * @api {put} /audit/:entity/:id d. Set record command
+         * @apiName UpdateAudit
+         * @apiGroup Audit
+         * @apiDescription Set a full record on track
+         *
+         * @apiParam (Body x-www) {String} field All fields
+         *
+         * @apiParam (Param) {String} id Entity unique id.
+         * @apiParam (Param) {String} entity Entity type {applications, servers, systems, clients, networks and etc}.
+         *
+         * @apiPermission JWT Private (MAESTRO_SECRETJWT_PRIVATE)
+         * @apiHeader (Header) {String} Authorization JWT {Token}
+         *
+         * @apiError (Error) PermissionError Token don`t have permission
+         * @apiError (Error) Unauthorized Invalid Token
+         *
+         * @apiSuccessExample {json} Success-Response:
+         *     HTTP/1.1 204 OK
+         *     {}
+         */
+        .put('/:entity/:id', authenticate_private(), PersistenceAudit.update)
+        /**
+         * @api {patch} /audit/:entity/:id e. Patch record command
          * @apiName PatchAudit
          * @apiGroup Audit
          * @apiDescription Set a partial record on track
@@ -102,7 +124,7 @@ module.exports = function (router) {
          */
         .patch('/:entity/:id', authenticate_private(), PersistenceAudit.patch)
         /**
-         * @api {delete} /audit/:entity/:id c. Remove record command
+         * @api {delete} /audit/:entity/:id f. Remove record command
          * @apiName RemoveAudit
          * @apiGroup Audit
          * @apiDescription Set a delete record on track

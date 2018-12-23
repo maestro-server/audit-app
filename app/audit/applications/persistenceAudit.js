@@ -40,6 +40,23 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             const entity_id = _.get(params, 'id');
             const entity = _.get(params, 'entity');
 
+            let tmp = _.assign({body}, {entity, entity_id})
+
+            Promise.all([
+                    PersistenceServices(EntityStorage).create(tmp),
+                    AuditTrackCharged({entity, entity_id}).update({}, body)
+                ])
+                .then(e => res.status(201).json(e))
+                .catch(next);
+        },
+
+        update(req, res, next) {
+            let {body, params} = req;
+
+            params = transfID(params, 'id');
+            const entity_id = _.get(params, 'id');
+            const entity = _.get(params, 'entity');
+
             PersistenceServices(EntityStorage)
                 .findOne({entity_id})
                 .then(base => {
@@ -50,7 +67,7 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
                         AuditTrackCharged({entity, entity_id}).update(_.get(base, 'body', {}), body)
                     ])
                 })
-                .then(e => res.status(201).json(e))
+                .then(e => res.status(204).json(e))
                 .catch(next);
         },
 
