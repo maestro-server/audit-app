@@ -14,7 +14,7 @@ chai.use(chaiAsPromised);
 describe('unit - profile', function () {
 
     it('config - auth_config', function (done) {
-        const config = require('audit/config/auth_config')();
+        const config = require('audit/config/auth_config_private')();
 
         expect(config).to.have.property('jwtSecret')
             .to.have.property('secretOrKey');
