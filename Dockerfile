@@ -16,7 +16,6 @@ COPY package.json .
 COPY pm2.json .
 COPY server.js .
 
-RUN mkdir -p /data/artifacts/graphs-bussiness
 RUN npm install --only=production
 
 
