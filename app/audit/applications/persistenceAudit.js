@@ -6,6 +6,8 @@ const DPersistenceServices = require('core/services/PersistenceServices');
 const validNotFound = require('core/applications/validator/validNotFound');
 const {transfID} = require('core/applications/transforms/mapRelationToObjectID');
 
+const hateaosTransform = require('core/applications/transforms/hateoasTransform');
+
 const AuditTrack = require('audit/services/AuditTrack');
 
 
@@ -29,6 +31,7 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             PersistenceServices(Entity)
                 .find(query)
                 .then((e) => validNotFound(e, e[1], limit, page))
+                .then((e) => hateaosTransform(Entity).collectionTransform(e[0], e[1], limit, page))
                 .then(e => res.json(e))
                 .catch(next);
         },
