@@ -8,7 +8,7 @@ const {transfID} = require('core/applications/transforms/mapRelationToObjectID')
 
 const hateaosTransform = require('core/applications/transforms/hateoasTransform');
 
-const AuditTrack = require('audit/services/AuditTrack');
+const AuditTrack = require('audit/services/auditTrack');
 
 
 const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPersistenceServices) => {

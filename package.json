@@ -11,7 +11,7 @@
     "unit": "gulp test_unit",
     "lint": "gulp eslint",
     "tdd": "gulp tdd",
-    "package": "docker build -t 'audit-maestro' .",
+    "package": "docker build -t 'audit-app-maestro' .",
     "docs": "gulp apidocs --name audit",
     "coverage": "nyc --reporter=lcov mocha test/**/*js --timeout 5000 --exit"
   },
