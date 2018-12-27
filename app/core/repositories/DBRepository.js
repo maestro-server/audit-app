@@ -18,7 +18,7 @@ const DBRepository = (Entity, options = {}) => {
                 const page = _.parseInt(query.page);
                 const skip = limit * (page - 1);
 
-                const ascending = _.parseInt(_.get(query, 'ascending'));
+                const ascending = _.parseInt(_.get(query, 'ascending', 1));
                 const direction = ascending ? 1 : -1;
                 const orderBy = _.get(query, 'orderBy', 'updated_at');
                 const filter = findFilledFormat(query, Entity.singleFilled);
