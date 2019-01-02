@@ -3,7 +3,6 @@ engines:
   eslint:
     enabled: true
     config:
-      config: .eslintrc
       extensions:
       - .js
   duplication:
@@ -18,7 +17,12 @@ ratings:
   - app/**.js
 exclude_paths:
 - "test/"
+- "docs/"
+- "tasks/"
+- "devtools/"
 - "node_modules/"
 - "build/"
 - "app/core/routers/"
-- "app/identity/routers/"
+- "app/audit/routers/"
+- "app/core/entities/"
+- "app/audit/entities/"
