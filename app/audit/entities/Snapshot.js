@@ -16,7 +16,7 @@ const snapshot = () => {
 
       access: 'roles',
 
-      validators: require('../validators/snapshot'),
+      validators: require('../validators/audit'),
 
       dao: Snapshot,
 
