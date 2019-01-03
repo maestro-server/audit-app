@@ -58,13 +58,14 @@ Or by docker-compose
 version: '2'
 
 services:
-    server:
-    image: maestroserver/audit-maestro
-    ports:
-    - "10900:10900"
-    environment:
-    - "MAESTRO_MONGO_URI=mongodb"
-    - "MAESTRO_MONGO_DATABASE=maestro-audit"
+    audit:
+        image: maestroserver/audit-app-maestro
+        environment:
+        - "MAESTRO_MONGO_URI=mongodb"
+        - "MAESTRO_MONGO_DATABASE=maestro-audit"
+        - "MAESTRO_DATA_URI=http://data:5010"
+        depends_on:
+        - mongodb
 ```
 
 #### Dev Env ####
