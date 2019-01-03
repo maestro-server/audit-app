@@ -1,6 +1,6 @@
 {
   "name": "audit-app",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Audit App - Maestro Server",
   "author": "Felipe Klerk Signorini &lt;felipeklerk@yahoo.com.br&gt;",
   "main": "server.js",
