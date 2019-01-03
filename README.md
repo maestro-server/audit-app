@@ -24,7 +24,7 @@ Audit App is webapp application port of Maestro Server stack, yours responsibili
 
 We using DDD to organize the code, has infra, repositories, entities (values objects), interfaces, application, and domain.
 
-![arch](http://docs.maestroserver.io/en/latest/_images/fluxo_data.png)
+![arch](http://docs.maestroserver.io/en/latest/_images/audit_arch.png)
 
 Constructed with KrakenJs, we create a lot of middleware and organize by domain.
 
