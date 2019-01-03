@@ -5,7 +5,7 @@ const _ = require('lodash');
 const Audit = require('../repositories/dao/audit');
 
 const audit = () => {
-    const resFilled = ['_id', 'updated_at', 'entity', 'entity_id', 'body'];
+    const resFilled = ['_id', 'updated_at', 'entity', 'entity_id', 'user', 'body'];
 
     const singleFilled = [...resFilled];
 

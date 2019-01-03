@@ -78,7 +78,7 @@ module.exports = function (router) {
          *     HTTP/1.1 201 OK
          *     {}
          */
-        .post('/:entity/:id', authenticate_private(), PersistenceAudit.create)
+        .post('/:entity/:id/:user?', authenticate_private(), PersistenceAudit.create)
         /**
          * @api {put} /audit/:entity/:id d. Set record command
          * @apiName UpdateAudit
@@ -100,7 +100,7 @@ module.exports = function (router) {
          *     HTTP/1.1 204 OK
          *     {}
          */
-        .put('/:entity/:id', authenticate_private(), PersistenceAudit.update)
+        .put('/:entity/:id/:user?', authenticate_private(), PersistenceAudit.update)
         /**
          * @api {patch} /audit/:entity/:id e. Patch record command
          * @apiName PatchAudit
@@ -122,7 +122,7 @@ module.exports = function (router) {
          *     HTTP/1.1 201 OK
          *     {}
          */
-        .patch('/:entity/:id', authenticate_private(), PersistenceAudit.patch)
+        .patch('/:entity/:id/:user?', authenticate_private(), PersistenceAudit.patch)
         /**
          * @api {delete} /audit/:entity/:id f. Remove record command
          * @apiName RemoveAudit
@@ -143,5 +143,5 @@ module.exports = function (router) {
          *     HTTP/1.1 201 OK
          *     {}
          */
-        .delete('/:entity/:id', authenticate_private(), PersistenceAudit.remove);
+        .delete('/:entity/:id/:user?', authenticate_private(), PersistenceAudit.remove);
 };

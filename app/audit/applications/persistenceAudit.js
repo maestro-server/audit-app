@@ -14,6 +14,7 @@ const AuditTrack = require('audit/services/auditTrack');
 const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPersistenceServices) => {
 
     const AuditTrackCharged = AuditTrack(PersistenceServices(Entity));
+    const dUser = "MaestroServer"
 
     return {
         find(req, res, next) {
@@ -21,8 +22,7 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             let {query, params} = req;
 
             params = transfID(params, 'id');
-            const entity_id = _.get(params, 'id');
-            const entity = _.get(params, 'entity');
+            const {id:entity_id, entity} =  params;
 
             query = _.defaults(query, {entity, entity_id}, {limit: 20000}, {page: 1});
 
@@ -40,14 +40,13 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             let {body, params} = req;
 
             params = transfID(params, 'id');
-            const entity_id = _.get(params, 'id');
-            const entity = _.get(params, 'entity');
+            const {id:entity_id, entity, user} = _.defaults(params, {user: dUser});
 
             let tmp = _.assign({body}, {entity, entity_id})
 
             Promise.all([
                     PersistenceServices(EntityStorage).create(tmp),
-                    AuditTrackCharged({entity, entity_id}).update({}, body)
+                    AuditTrackCharged({entity, entity_id, user}).update({}, body)
                 ])
                 .then(e => res.status(201).json(e))
                 .catch(next);
@@ -57,8 +56,7 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             let {body, params} = req;
 
             params = transfID(params, 'id');
-            const entity_id = _.get(params, 'id');
-            const entity = _.get(params, 'entity');
+            const {id:entity_id, entity, user} = _.defaults(params, {user: dUser});
 
             PersistenceServices(EntityStorage)
                 .findOne({entity_id})
@@ -67,7 +65,7 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
 
                     return Promise.all([
                         PersistenceServices(EntityStorage).update(entity_id, tmp),
-                        AuditTrackCharged({entity, entity_id}).update(_.get(base, 'body', {}), body)
+                        AuditTrackCharged({entity, entity_id, user}).update(_.get(base, 'body', {}), body)
                     ])
                 })
                 .then(e => res.status(204).json(e))
@@ -78,8 +76,7 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             let {body, params} = req;
 
             params = transfID(params, 'id')
-            const entity_id = _.get(params, 'id')
-            const entity = _.get(params, 'entity')
+            const {id:entity_id, entity, user} = _.defaults(params, {user: dUser});
 
             PersistenceServices(EntityStorage)
                 .findOne({entity_id})
@@ -88,7 +85,7 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
 
                     return Promise.all([
                         PersistenceServices(EntityStorage).patch(entity_id, tmp),
-                        AuditTrackCharged({entity, entity_id}).patch(_.get(base, 'body', {}), body)
+                        AuditTrackCharged({entity, entity_id, user}).patch(_.get(base, 'body', {}), body)
                     ])
                 })
                 .then(e => res.status(201).json(e))
@@ -99,10 +96,9 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             let {params} = req;
 
             params = transfID(params, 'id');
-            const entity_id = _.get(params, 'id');
-            const entity = _.get(params, 'entity');
+            const {id:entity_id, entity, user} = _.defaults(params, {user: dUser});
 
-            AuditTrackCharged({entity, entity_id})
+            AuditTrackCharged({entity, entity_id, user})
                 .remove()
                 .then(e => res.status(201).json(e))
                 .catch(next);
