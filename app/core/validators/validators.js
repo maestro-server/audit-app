@@ -5,7 +5,7 @@ const Joi = require('joi');
 module.exports = {
     entity: Joi.string().required(),
     entity_id: Joi.object().required(),
-    user: Joi.string().required(),
+    user: Joi.string(),
     body: Joi.object(),
     parent: Joi.object(),
     roles: Joi.object().keys({
