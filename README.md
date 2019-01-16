@@ -50,7 +50,7 @@ Constructed with KrakenJs, we create a lot of middleware and organize by domain.
 #### Installation by docker ####
 
 ```bash
-docker run -p 10900:10900  -e "MAESTRO_MONGO_URI=mongodb" -e "MAESTRO_MONGO_DATABASE=maestro-audit"  maestroserver/audit-maestro
+docker run -p 10900:10900  -e "MAESTRO_MONGO_URI=mongodb://localhost" -e "MAESTRO_MONGO_DATABASE=maestro-audit"  maestroserver/audit-maestro
 ```
 Or by docker-compose
 
@@ -61,7 +61,7 @@ services:
     audit:
         image: maestroserver/audit-app-maestro
         environment:
-        - "MAESTRO_MONGO_URI=mongodb"
+        - "MAESTRO_MONGO_URI=mongodb://mongodb"
         - "MAESTRO_MONGO_DATABASE=maestro-audit"
         - "MAESTRO_DATA_URI=http://data:5010"
         depends_on:
@@ -74,7 +74,7 @@ Configure database and port application in .env file
 
 ```bash
 MAESTRO_PORT=10900
-MAESTRO_MONGO_URI='localhost'
+MAESTRO_MONGO_URI='mongodb://localhost'
 MAESTRO_MONGO_DATABASE='maestro-audit'
 ```
 
@@ -104,7 +104,7 @@ gulp eslint
 |--------------------------------------|--------------------------|--------------------------------------------|
 | MAESTRO_PORT                         | 10900                    |                                            |
 | NODE_ENV                             | development|production   |                                            |
-| MAESTRO_MONGO_URI                    | localhost                | DB string connection                       |
+| MAESTRO_MONGO_URI                    | mongodb://localhost      | DB string connection                       |
 | MAESTRO_MONGO_DATABASE               | maestro-audit            | Database name                              |
 | MAESTRO_TIMEOUT                      | 1000                     | Timeout any http private request           |
 | MAESTRO_DATA_URI                     | http://localhost:5010    | Data App - API URL                         |
