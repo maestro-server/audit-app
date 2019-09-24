@@ -1,6 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
 const {Passport} = require('passport');
 
 const {Strategy} = require('passport-jwt');
@@ -15,7 +14,7 @@ module.exports = function () {
         const {noauth} = payload;
 
         if (noauth) {
-            const slfnoauth = process.env.MAESTRO_NOAUTH || "defaultSecretNoAuthToken"
+            const slfnoauth = process.env.MAESTRO_NOAUTH || "defaultSecretNoAuthToken";
 
             if (noauth === slfnoauth) {
                 return done(null, payload);

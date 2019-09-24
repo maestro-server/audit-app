@@ -8,7 +8,7 @@ const requestData = (post) => {
         .create(`/sync`, post)
         .then(console.info)
         .catch(console.error);
-}
+};
 
 module.exports = {
     'sync': (data, entity_id, {foreign, field, filter}) => {
@@ -37,4 +37,4 @@ module.exports = {
         }
 
     }
-}
+};

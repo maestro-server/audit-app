@@ -21,7 +21,7 @@ module.exports = (PersistenceStorage) => (body, entity, entity_id, user, created
             .catch(reject);
 
         } else {
-            resolve()
+            resolve();
         }
     });
 };

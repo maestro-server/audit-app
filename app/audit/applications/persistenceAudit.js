@@ -14,7 +14,7 @@ const AuditTrack = require('audit/services/auditTrack');
 const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPersistenceServices) => {
 
     const AuditTrackCharged = AuditTrack(PersistenceServices(Entity));
-    const dUser = "MaestroServer"
+    const dUser = "MaestroServer";
 
     return {
         find(req, res, next) {
@@ -42,7 +42,7 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             params = transfID(params, 'id');
             const {id:entity_id, entity, user} = _.defaults(params, {user: dUser});
 
-            let tmp = _.assign({body}, {entity, entity_id})
+            let tmp = _.assign({body}, {entity, entity_id});
 
             Promise.all([
                     PersistenceServices(EntityStorage).create(tmp),
@@ -61,12 +61,12 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
             PersistenceServices(EntityStorage)
                 .findOne({entity_id})
                 .then(base => {
-                    let tmp = _.assign({body}, {entity, entity_id})
+                    let tmp = _.assign({body}, {entity, entity_id});
 
                     return Promise.all([
                         PersistenceServices(EntityStorage).update(entity_id, tmp),
                         AuditTrackCharged({entity, entity_id, user}).update(_.get(base, 'body', {}), body)
-                    ])
+                    ]);
                 })
                 .then(e => res.status(204).json(e))
                 .catch(next);
@@ -75,18 +75,18 @@ const ApplicationAudit = (EntityStorage) => (Entity, PersistenceServices = DPers
         patch(req, res, next) {
             let {body, params} = req;
 
-            params = transfID(params, 'id')
+            params = transfID(params, 'id');
             const {id:entity_id, entity, user} = _.defaults(params, {user: dUser});
 
             PersistenceServices(EntityStorage)
                 .findOne({entity_id})
                 .then(base => {
-                    let tmp = _.assign({body}, {entity, entity_id})
+                    let tmp = _.assign({body}, {entity, entity_id});
 
                     return Promise.all([
                         PersistenceServices(EntityStorage).patch(entity_id, tmp),
                         AuditTrackCharged({entity, entity_id, user}).patch(_.get(base, 'body', {}), body)
-                    ])
+                    ]);
                 })
                 .then(e => res.status(201).json(e))
                 .catch(next);

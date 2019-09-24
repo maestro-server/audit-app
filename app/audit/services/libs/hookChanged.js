@@ -9,9 +9,9 @@ const HookChanged = ({entity, entity_id, body}) => {
     return new Promise((resolve) => {
 
         if (_.has(Rules, entity))
-            _.forEach(Rules[entity], activeHooks(body, entity_id))
+            _.forEach(Rules[entity], activeHooks(body, entity_id));
 
-        resolve()
+        resolve();
     });
 };
 

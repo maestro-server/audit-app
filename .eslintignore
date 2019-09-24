@@ -4,3 +4,5 @@ node_module/*
 tasks/*
 test/*
 coverage/*
+docs/*
+.nyc_output/*
