@@ -128,8 +128,6 @@ class Dao extends Model {
     }
 
     updateFull(filter, options) {
-        const opts = _.get(options, 'oUpdater', '');
-        const opp = `update${opts}Factory`;
         this.set('updated_at', new Date());
 
         let entity = filter;
