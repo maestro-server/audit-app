@@ -57,6 +57,21 @@ describe('e2e audit', function () {
       mock.close(done);
     });
 
+    /**
+    *
+    * Checking if the application it's running
+    */
+    describe('Healthcheck', function () {
+      it('Healthcheck', function (done) {
+          request(mock)
+              .get('/')
+              .expect(200)
+              .end(function (err) {
+                  if (err) return done(err);
+                  done(err);
+              });
+      });
+    });
 
     /**
     *
