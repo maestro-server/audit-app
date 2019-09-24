@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-const Audit = require('../repositories/dao/audit');
+const Audits = require('../repositories/dao/audit');
 
 const audit = () => {
     const resFilled = ['_id', 'updated_at', 'entity', 'entity_id', 'user', 'body'];
@@ -18,7 +18,7 @@ const audit = () => {
 
       validators: require('../validators/audit'),
 
-      dao: Audit,
+      dao: Audits,
 
       filled,
       singleFilled,

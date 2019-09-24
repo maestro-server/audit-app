@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-const Snapshot = require('../repositories/dao/snapshot');
+const Snapshots = require('../repositories/dao/snapshot');
 
 const snapshot = () => {
     const resFilled = ['_id', 'updated_at', 'entity', 'entity_id', 'user', 'body'];
@@ -18,7 +18,7 @@ const snapshot = () => {
 
       validators: require('../validators/audit'),
 
-      dao: Snapshot,
+      dao: Snapshots,
 
       filled,
       singleFilled,
