@@ -40,7 +40,7 @@ module.exports = (Entity) => {
         },
 
         singleTransform: (item) => {
-            if (item.hasOwnProperty(Entity.access))
+            if (Object.prototype.hasOwnProperty.call(item, Entity.access))
                 item[Entity.access] = item[Entity.access].map((err) => singleHT(err, err.refs));
 
             return singleHT(item, Entity.name);
