@@ -15,20 +15,16 @@ To test out the demo, [Demo Online](http://demo.maestroserver.io "Demo Online")
 
 # Maestro Server - Audit App #
 
-Audit App is webapp application port of Maestro Server stack, yours responsibility is:
+Audit App is a single application to track and record resources change:
 
- - Control and manage changed data on Maestro
- - Show a tree of changed entities
- - Store and control data changes
- - Trigger hooks based in changed rules
-
-We using DDD to organize the code, has infra, repositories, entities (values objects), interfaces, application, and domain.
+* Track resources changes
+* Create a change tree
+* Store those data
 
 ![arch](http://docs.maestroserver.io/en/latest/_images/audit_arch.png)
 
-Constructed with KrakenJs, we create a lot of middleware and organize by domain.
 
-**Core API, organized by modules:**
+**Core API:**
 
 * Core
 * Authetication
@@ -40,7 +36,7 @@ Constructed with KrakenJs, we create a lot of middleware and organize by domain.
 * MongoDB 3.6
 
 
-## Service relations ##
+## Connect to: ##
 
 * Maestro Server App
 * Data App
